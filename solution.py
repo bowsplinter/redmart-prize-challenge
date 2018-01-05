@@ -69,7 +69,6 @@ tote_dims = [45,30,35]
 tote_dims.sort()
 tote_volume = get_volume(tote_dims)
 
-memoize = {}
 items = [] #(id, price, volume, weight)
 rejected = 0
 # Get items from csv and remove those that dont fit in tote
@@ -88,5 +87,5 @@ with open('products.csv') as csvfile:
     print("Number of items that do not fit the tote: {}".format(rejected))
 
 optimal_items = knapsack(items, tote_volume)
-print(optimal_items)
-print(get_sum_id(optimal_items))
+print("Items to put inside tote: {}".format(optimal_items))
+print("Sum of IDs of optimal items: {}".format(get_sum_id(optimal_items)))
