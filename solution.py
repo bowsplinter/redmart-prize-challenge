@@ -4,6 +4,10 @@ from functools import reduce
 def get_volume(dims):
     return reduce(lambda x,y: x*y, dims, 1)
 
+def get_sum_id(items):
+    # given a list of tuples, return sum of all first elements in tuple
+    return sum(zip(*items)[0])
+
 def knapsack(items, maxvolume):
     """
     Knapsack implementation that takes in items and volume of knapsack, and
@@ -84,3 +88,4 @@ with open('products.csv') as csvfile:
 
 optimal_items = knapsack(items, tote_volume)
 print(optimal_items)
+print(get_sum_id(optimal_items))
