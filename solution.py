@@ -79,7 +79,8 @@ with open('products.csv') as csvfile:
         item = [int(x) for x in row]
         item_dims = item[2:5]
         item_dims.sort()
-        fit = (item_dims[0] <= tote_dims[0] and item_dims[1] <= tote_dims[1] and item_dims[2] <= tote_dims[2])
+        fit = all(x <= y for x,y in zip(item_dims, tote_dims))
+        # fit = (item_dims[0] <= tote_dims[0] and item_dims[1] <= tote_dims[1] and item_dims[2] <= tote_dims[2])
         if fit:
             items.append((item[0], item[1], get_volume(item_dims), item[5]))
         else:
