@@ -65,27 +65,31 @@ def knapsack(items, maxvolume):
 
     return result
 
-tote_dims = [45,30,35]
-tote_dims.sort()
-tote_volume = get_volume(tote_dims)
+def redmart_challenge():
+    tote_dims = [45,30,35]
+    tote_dims.sort()
+    tote_volume = get_volume(tote_dims)
 
-items = [] #(id, price, volume, weight)
-rejected = 0
-# Get items from csv and remove those that dont fit in tote
-with open('products.csv') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
-    for row in reader:
-        item = [int(x) for x in row]
-        item_dims = item[2:5]
-        item_dims.sort()
-        fit = all(x <= y for x,y in zip(item_dims, tote_dims))
-        # fit = (item_dims[0] <= tote_dims[0] and item_dims[1] <= tote_dims[1] and item_dims[2] <= tote_dims[2])
-        if fit:
-            items.append((item[0], item[1], get_volume(item_dims), item[5]))
-        else:
-            rejected +=1
-    print("Number of items that do not fit the tote: {}".format(rejected))
+    items = [] #(id, price, volume, weight)
+    rejected = 0
+    # Get items from csv and remove those that dont fit in tote
+    with open('products.csv') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        for row in reader:
+            item = [int(x) for x in row]
+            item_dims = item[2:5]
+            item_dims.sort()
+            fit = all(x <= y for x,y in zip(item_dims, tote_dims))
+            # fit = (item_dims[0] <= tote_dims[0] and item_dims[1] <= tote_dims[1] and item_dims[2] <= tote_dims[2])
+            if fit:
+                items.append((item[0], item[1], get_volume(item_dims), item[5]))
+            else:
+                rejected +=1
+        print("Number of items that do not fit the tote: {}".format(rejected))
 
-optimal_items = knapsack(items, tote_volume)
-print("Items to put inside tote: {}".format(optimal_items))
-print("Sum of IDs of optimal items: {}".format(get_sum_id(optimal_items)))
+    optimal_items = knapsack(items, tote_volume)
+    print("Items to put inside tote: {}".format(optimal_items))
+    print("Sum of IDs of optimal items: {}".format(get_sum_id(optimal_items)))
+
+if __name__ == '__main__':
+    redmart_challenge()
